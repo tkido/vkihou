@@ -24,7 +24,8 @@ func main() {
 var (
 	reEmpty    = regexp.MustCompile(`^$`)
 	reComment  = regexp.MustCompile(`^#`)
-	reHeadLine = regexp.MustCompile(`^\*.*$`)
+	reMessage  = regexp.MustCompile(`^\*.*$`)
+	reHeadline = regexp.MustCompile(`^[★■●◆◇].*$`)
 )
 
 func headLine(line string) (string, MessageType) {
@@ -106,7 +107,10 @@ func convert(path string) string {
 			lines.Pop()
 		case reComment.MatchString(first):
 			lines.Pop()
-		case reHeadLine.MatchString(first):
+		case reHeadline.MatchString(first):
+			buf.Push(lines.Pop())
+			msg.Type = Narrate
+		case reMessage.MatchString(first):
 			script, tipe := headLine(lines.Pop())
 			msg.Type = tipe
 			buf.Push(script)
