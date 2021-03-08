@@ -115,6 +115,8 @@ func convert(path string) string {
 			msg.Type = tipe
 			buf.Push(script)
 			buf.Push("")
+			buf.Push("")
+			buf.Push("")
 		default:
 			buf.Concat(message(lines.TakeBlockNot(reEmpty), msg))
 		}
