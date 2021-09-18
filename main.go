@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"regexp"
 	"strings"
@@ -31,26 +30,18 @@ var (
 func headLine(line string) (string, MessageType) {
 	line = line[1:]
 	if line == "" {
-		return `Aov.msg();`, Narrate
+		return `☆`, Narrate
 	}
 	ss := strings.Split(line, ".")
 	switch len(ss) {
 	case 0:
 		fmt.Println("here!!!")
-		return `Aov.msg();`, Narrate
+		return `☆`, Narrate
 	case 1:
-		return fmt.Sprintf("Aov.msg('%s');", ss[0]), Say
+		return fmt.Sprintf("☆%s", ss[0]), Say
 	default:
-		var tipe MessageType
-		switch ss[1] {
-		case "say":
-			tipe = Say
-		case "think":
-			tipe = Think
-		default:
-			log.Fatalf("MUST NOT HAPPEN!!")
-		}
-		return fmt.Sprintf("Aov.msg('%s', '%s');", ss[0], ss[1]), tipe
+		tipe := Think
+		return fmt.Sprintf("☆%s", ss[0]), tipe
 	}
 }
 
